@@ -7,15 +7,26 @@ import { colors } from '@styles/colorPalette'
 interface FixedBottomButtonProps {
   label: string
   onClick: () => void
+  disabled?: boolean
 }
 
-function FixedBottomButton({ label, onClick }: FixedBottomButtonProps) {
+function FixedBottomButton({
+  label,
+  onClick,
+  disabled,
+}: FixedBottomButtonProps) {
   const $portalRoot = document.getElementById('root-portal')
   if (!$portalRoot) return null
 
   return createPortal(
     <Container>
-      <Button size="medium" full={true} onClick={onClick} css={buttonStyle}>
+      <Button
+        disabled={disabled}
+        size="medium"
+        full={true}
+        onClick={onClick}
+        css={buttonStyle}
+      >
         {label}
       </Button>
     </Container>,
