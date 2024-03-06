@@ -2,7 +2,7 @@ export interface Card {
   name: string
   corpName: string
   tags: string[]
-  benefits: string[]
+  benefit: string[]
   promotion?: {
     title: string
     terms: string
