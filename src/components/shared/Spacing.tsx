@@ -7,6 +7,6 @@ interface SpacingProps {
 
 const Spacing = styled.div<SpacingProps>`
   margin: ${({ size, direction }: SpacingProps) =>
-    direction === 'horizontal' ? `width: ${size}px` : `height:${size}px`};
+    direction === 'horizontal' ? `0 ${size}px` : `${size}px 0`};
 `
 export default Spacing

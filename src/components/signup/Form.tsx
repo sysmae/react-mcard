@@ -25,7 +25,7 @@ function Form({ onSubmit }: { onSubmit: (formValues: FormValues) => void }) {
     setDirty((prev) => ({ ...prev, [e.target.name]: 'true' }))
   }, [])
   const errors = useMemo(() => validate(formValues), [formValues])
-  const canSubmit = Object.keys(errors).length === 0
+  const disabled = !(Object.keys(errors).length === 0)
   return (
     <Flex direction="column" css={formContainerStyles}>
       <TextField
@@ -75,7 +75,7 @@ function Form({ onSubmit }: { onSubmit: (formValues: FormValues) => void }) {
 
       <FixedBottomButton
         label="회원가입"
-        disabled={canSubmit === false}
+        disabled={disabled}
         onClick={() => {
           onSubmit(formValues)
         }}
