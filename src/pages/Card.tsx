@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 import { css } from '@emotion/react'
+import { motion } from 'framer-motion'
 
 import { getCard } from '@/remote/card'
 import Top from '@/components/shared/Top'
@@ -24,13 +25,25 @@ function CardPage() {
       <Top title={`${corpName} ${name}`} subtitle={subtitle}></Top>
       <ul>
         {benefit?.map((text, index) => (
-          <ListRow
-            key={text}
-            left={<IconCheck />}
-            contents={
-              <ListRow.Texts title={`혜택 ${index + 1}`} subtitle={text} />
-            }
-          />
+          <motion.li
+            initial={{ opacity: 0, translateX: -90 }}
+            // whileInView={{ opacity: 1, translateX: 0 }}
+            transition={{
+              duration: 0.3,
+              ease: 'easeInOut',
+              delay: index * 0.1,
+            }}
+            animate={{ opacity: 1, translateX: 0 }}
+          >
+            <ListRow
+              as="div"
+              key={text}
+              left={<IconCheck />}
+              contents={
+                <ListRow.Texts title={`혜택 ${index + 1}`} subtitle={text} />
+              }
+            />
+          </motion.li>
         ))}
       </ul>
       {promotion != null ? (
