@@ -8,6 +8,9 @@ import SignupPage from './pages/Signup'
 import Navbar from '@shared/Navbar'
 import PrivateRoute from './components/auth/PrivateRoute'
 import ApplyPage from './pages/Apply'
+import ApplyDone from './pages/ApplyDone'
+import MyPage from './pages/My'
+
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +27,22 @@ function App() {
           element={
             <PrivateRoute>
               <ApplyPage />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/apply/done"
+          element={
+            <PrivateRoute>
+              <ApplyDone />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/my"
+          element={
+            <PrivateRoute>
+              <MyPage />
             </PrivateRoute>
           }
         ></Route>

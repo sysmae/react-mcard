@@ -30,7 +30,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
   ref,
 ) {
   return (
-    <Flex>
+    <Flex direction="column">
       {label ? (
         <Text
           typography="t7"
