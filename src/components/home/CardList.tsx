@@ -1,6 +1,6 @@
 import ListRow from '../shared/ListRow'
 import Badge from '../shared/Badge'
-import { flatten } from 'lodash'
+import flatten from 'lodash.flatten'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { useNavigate } from 'react-router-dom'
 
@@ -23,6 +23,7 @@ function CardList() {
       getNextPageParam: (snapshot) => {
         return snapshot.lastVisible
       },
+      suspense: true,
     },
   )
 
@@ -42,7 +43,7 @@ function CardList() {
       <InfiniteScroll
         dataLength={cards.length}
         hasMore={hasNextPage}
-        loader={<></>}
+        loader={<ListRow.Skeleton />}
         next={loadMore}
         // scrollableTarget="root"
         scrollThreshold="100px"

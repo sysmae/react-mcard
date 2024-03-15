@@ -1,14 +1,16 @@
+import { css } from '@emotion/react'
 import Flex from './Flex'
 import Text from './Text'
-import { css } from '@emotion/react'
+import Skeleton from './Skeleton'
+import Spacing from './Spacing'
 
-export interface ListRowProps {
+interface ListRowProps {
   left?: React.ReactNode
   contents: React.ReactNode
   right?: React.ReactNode
   withArrow?: boolean
   onClick?: () => void
-  as?: 'li' | 'div'
+  as?: 'div' | 'li'
 }
 
 function ListRow({
@@ -22,27 +24,13 @@ function ListRow({
   return (
     <Flex as={as} css={listRowContainerStyles} onClick={onClick} align="center">
       <Flex css={listRowLeftStyles}>{left}</Flex>
-      <Flex css={listRowContentsStyles}>{contents} </Flex>
+      <Flex css={listRowContentsStyles}>{contents}</Flex>
       <Flex>{right}</Flex>
-      {withArrow && <IconArrowRight />}
+      {withArrow ? <IconArrowRight /> : null}
     </Flex>
   )
 }
 
-function ListRowTexts({
-  title,
-  subtitle,
-}: {
-  title: string
-  subtitle: string
-}) {
-  return (
-    <Flex direction="column">
-      <Text bold={true}>{title}</Text>
-      <Text typography="t7">{subtitle}</Text>
-    </Flex>
-  )
-}
 const listRowContainerStyles = css`
   padding: 8px 24px;
 `
@@ -54,23 +42,57 @@ const listRowLeftStyles = css`
 const listRowContentsStyles = css`
   flex: 1;
 `
+
+function ListRowTexts({
+  title,
+  subtitle,
+}: {
+  title: React.ReactNode
+  subtitle: React.ReactNode
+}) {
+  return (
+    <Flex direction="column">
+      <Text bold={true}>{title}</Text>
+      <Text typography="t7">{subtitle}</Text>
+    </Flex>
+  )
+}
+
+function ListRowSkeleton() {
+  return (
+    <Flex as="li" css={listRowContainerStyles} align="center">
+      <Flex css={listRowLeftStyles}></Flex>
+      <Flex css={listRowContentsStyles}>
+        <ListRow.Texts
+          title={
+            <>
+              <Skeleton width={67} height={23} />
+              <Spacing size={2} />
+            </>
+          }
+          subtitle={<Skeleton width={85} height={20} />}
+        />
+      </Flex>
+      <IconArrowRight />
+    </Flex>
+  )
+}
+
 function IconArrowRight() {
   return (
     <svg
-      id="Layer_1"
-      version="1.1"
-      viewBox="0 0 512 512"
+      viewBox="0 0 96 96"
+      xmlns="http://www.w3.org/2000/svg"
       width={20}
       height={20}
-      xmlSpace="preserve"
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
     >
-      <path d="M298.3,256L298.3,256L298.3,256L131.1,81.9c-4.2-4.3-4.1-11.4,0.2-15.8l29.9-30.6c4.3-4.4,11.3-4.5,15.5-0.2l204.2,212.7  c2.2,2.2,3.2,5.2,3,8.1c0.1,3-0.9,5.9-3,8.1L176.7,476.8c-4.2,4.3-11.2,4.2-15.5-0.2L131.3,446c-4.3-4.4-4.4-11.5-0.2-15.8  L298.3,256z" />
+      <title />
+      <path d="M69.8437,43.3876,33.8422,13.3863a6.0035,6.0035,0,0,0-7.6878,9.223l30.47,25.39-30.47,25.39a6.0035,6.0035,0,0,0,7.6878,9.2231L69.8437,52.6106a6.0091,6.0091,0,0,0,0-9.223Z" />
     </svg>
   )
 }
 
 ListRow.Texts = ListRowTexts
+ListRow.Skeleton = ListRowSkeleton
 
 export default ListRow
